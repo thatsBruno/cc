@@ -13,26 +13,35 @@ func main() {
 
 	flag.Parse()
 
-	file, err := os.Stat(*filePathPtr)
+	fileStats, err := os.Stat(*filePathPtr)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fileLines, err := os.Open(*filePathPtr) // replace with your file name
+	file, err := os.Open(*filePathPtr) // replace with your file name
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	defer fileLines.Close()
+	defer file.Close()
 
-	scanner := bufio.NewScanner(fileLines)
+	scanner := bufio.NewScanner(file)
 
 	lines := 0
+	words := ""
 	for scanner.Scan() {
 		lines++
+		words += scanner.Text() + "\n"
+	}
+
+	wordCount := 0
+	for i := 0; i < len(words); i++ {
+		wordCount = i
 	}
 
 	fmt.Println("File name: ", *filePathPtr)
-	fmt.Println("File size: ", file.Size())
+	fmt.Println("File size: ", fileStats.Size())
 	fmt.Println("File lines: ", lines)
+	fmt.Println("File words: ", words)
+	fmt.Println("File words: ", wordCount)
 }
