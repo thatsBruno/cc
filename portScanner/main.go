@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	port := flag.Int("port", 0, "file path")
+	port := flag.Int("port", 0, "port")
 
 	flag.Parse()
 
